@@ -2,6 +2,7 @@ package FamilyTree;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,8 +43,14 @@ public class Main {
         db.store(bart);
         db.store(patty);
         db.store(ling);
+        db.commit();
 
-        abbie.print(0);
+        ObjectSet<Person> people = db.query(Person.class);
+
+        people.forEach(p -> {
+            p.print(0);
+            System.out.println("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+        });
 
         db.close();
     }
