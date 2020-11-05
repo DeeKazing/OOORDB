@@ -21,11 +21,12 @@ public class Main {
         Person abe = new Person("Simpson", "Abraham", 80, null, null);
         Person jac = new Person("Bouvier", "Jacqueline", 80, null, null);
         Person clancy = new Person("Bouvier", "Clancy", 80, null, null);
-        Person edwina = new Person("?", "Edwina", 80, abe, null);
-        Person mona = new Person("Simpson", "Mona", 80, abe, null);
+        Person edwina = new Person("?", "Edwina", 80, null, null);
+        Person mona = new Person("Simpson", "Mona", 80, null, null);
+        Person questionMark = new Person("?", "?", 40, null, null);
         Person patty = new Person("Bouvier", "Patty", 40, clancy, jac);
         Person selma = new Person("Bouvier", "Selma", 40, clancy, jac);
-        Person herbert = new Person("Powel", "Herbert", 40, clancy, jac);
+        Person herbert = new Person("Powel", "Herbert", 40, abe, questionMark);
         Person abbie = new Person("?", "Abbie", 40, abe, edwina);
         Person homer = new Person("Simpson", "Homer", 40, abe, mona);
         Person marge = new Person("Simpson", "Marge", 40, clancy, jac);
@@ -33,7 +34,16 @@ public class Main {
         Person maggie = new Person("Simpson", "Maggie", 5, homer, marge);
         Person lisa = new Person("Simpson", "Lisa", 12, homer, marge);
         Person bart = new Person("Simpson", "Bart", 14, homer, marge);
+
         db.store(maggie);
+        db.store(herbert);
+        db.store(abbie);
+        db.store(lisa);
+        db.store(bart);
+        db.store(patty);
+        db.store(ling);
+
+        abbie.print(0);
 
         db.close();
     }
