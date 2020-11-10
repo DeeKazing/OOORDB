@@ -3,7 +3,7 @@ public class Client extends Person {
 
     public Client(long id, String name, String phone, String account) {
         super(id, name, phone);
-        Account = account;
+        this.Account = account;
     }
 
     @Override

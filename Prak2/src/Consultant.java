@@ -3,7 +3,7 @@ public class Consultant extends Person {
 
     public Consultant(long id, String name, String phone, String mobile) {
         super(id, name, phone);
-        MobilePhone = mobile;
+        this.MobilePhone = mobile;
     }
 
     @Override

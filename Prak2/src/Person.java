@@ -8,10 +8,10 @@ public abstract class Person {
     List<Call> allCalls;
 
     public Person(long id, String name, String phone) {
-        Id = id;
-        Name = name;
-        PhoneNumber = phone;
-        allCalls = new ArrayList<>();
+        this.Id = id;
+        this.Name = name;
+        this.PhoneNumber = phone;
+        this.allCalls = new ArrayList<>();
     }
 
     public void display() {

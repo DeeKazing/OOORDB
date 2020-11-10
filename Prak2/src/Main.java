@@ -39,8 +39,8 @@ public class Main {
         db.store(cl3);
         db.store(co3);
 
-        ObjectSet<Person> os = db.queryByExample(Person.class);
-        os.forEach(Person::display);
+        ObjectSet<Person> people = db.queryByExample(Person.class);
+        people.forEach(Person::display);
 
         db.close();
     }

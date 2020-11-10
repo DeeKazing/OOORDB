@@ -19,5 +19,4 @@ public class Call {
         System.out.printf("Call between Client %s and Consultant %s | Day: %d, Time: %x, Duration: %d",
                 Client.Name, Consultant.Name, Date, Time, Duration);
     }
-
 }
