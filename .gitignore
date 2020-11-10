@@ -72,6 +72,6 @@ fabric.properties
 
 
 Prak1/db4o-8.0/
-Prak1/familytree.db
+*.db
 
-Prak1/.idea/
+*/.idea/
