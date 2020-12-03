@@ -1,7 +1,7 @@
-import com.mongodb.WriteConcern;
 import com.mongodb.client.*;
-import com.mongodb.client.model.InsertOneOptions;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
+
 
 public class P3 {
     MongoClient client;
@@ -17,7 +17,86 @@ public class P3 {
         collReparatur = db.getCollection("Reparatur");
         collAuto = db.getCollection("Auto");
         collKunde = db.getCollection("Kunde");
-        //db.withWriteConcern(WriteConcern.ACKNOWLEDGED);
+    }
+
+    public void exerciseA(){
+        System.out.println("-- ALLE KUNDEN MIT IHREN AUTOS + REPARATUREN --");
+        try (MongoCursor<Document> kundeCursor = collKunde.find().iterator()) {
+            while (kundeCursor.hasNext()) {
+                Document currentKunde = kundeCursor.next();
+                System.out.print("Kunde: ");
+                System.out.println(currentKunde.toJson());
+
+                //Auto
+                for (Document currentAuto : collAuto.find(Filters.eq("Kunde",
+                        currentKunde.get("_id")))) {
+                    System.out.print("\tAuto: ");
+                    System.out.println(currentAuto.toJson());
+
+                    //Reparatur
+                    for (Document currentReparatur : collReparatur.find(Filters.eq("Auto",
+                            currentAuto.get("_id")))) {
+                        System.out.print("\t\tReparatur: ");
+                        System.out.println(currentReparatur.toJson());
+                    }
+                }
+            }
+        }
+    }
+
+    public void exerciseB(){
+        System.out.println("-- AUSGABE VON KUNDE MUELLER --");
+        var mueller = collKunde.find(Filters.eq("Name", "Mueller")).first();
+        System.out.println(mueller != null ? mueller.toJson() : "Mueller not found");
+    }
+
+    public void exerciseC(){
+        System.out.println("-- ALLE KUNDEN MIT LACK REPARATUR --");
+        try (MongoCursor<Document> kundeCursor = collKunde.find().iterator()) {
+            while (kundeCursor.hasNext()) {
+                boolean lack = false;
+                Document currentKunde = kundeCursor.next();
+
+                //Auto
+                for (Document currentAuto : collAuto.find(Filters.eq("Kunde",
+                        currentKunde.get("_id")))) {
+                    //Reparatur
+                    for (Document currentReparatur : collReparatur.find(Filters.eq("Auto",
+                            currentAuto.get("_id")))) {
+                        if (currentReparatur.get("Bezeichnung").equals("Lack")) {
+                            lack = true;
+                        }
+                    }
+                }
+                if (lack) {
+                    System.out.println(currentKunde.toJson());
+                }
+            }
+        }
+    }
+
+    public void exerciseD() {
+        System.out.println("-- KUNDE MUELLER HAT SICH EIN AUTO GEKAUFT: SEINE AUTOS --");
+        Document autoNeu = new Document("_id", "auto4")
+                .append("Name", "Audi A1")
+                .append("Kennzeichen", "M-XX 12")
+                .append("Baujahr", "2019")
+                .append("Kunde", "kunde2");
+
+        collAuto.insertOne(autoNeu);
+
+        for (Document document : collAuto.find(Filters.eq("Kunde","kunde2")))
+            System.out.println(document.toJson());
+    }
+
+    public void exerciseE() {
+        System.out.println("-- KUNDE RICHTER ENTFERNT: GEBE ALLE RESTLICHEN KUNDEN AUS --");
+        collKunde.deleteOne(Filters.eq("Name", "Richter"));
+        try (MongoCursor<Document> kundeCursor = collKunde.find().iterator()) {
+            while (kundeCursor.hasNext()) {
+                System.out.println(kundeCursor.next().toJson());
+            }
+        }
     }
 
     public void insertTemplate() {
