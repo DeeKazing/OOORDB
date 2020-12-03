@@ -71,7 +71,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 
-Prak1/db4o-8.0/
+libs/db4o-8.0/
 *.db
 
 */.idea/
