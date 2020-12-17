@@ -76,7 +76,7 @@ public class P3 {
     }
 
     public void exerciseD() {
-        System.out.println("-- KUNDE MUELLER HAT SICH EIN AUTO GEKAUFT: SEINE AUTOS --");
+        System.out.println("-- KUNDE MUELLER HAT SICH EIN AUTO GEKAUFT --");
         Document autoNeu = new Document("_id", "auto4")
                 .append("Name", "Audi A1")
                 .append("Kennzeichen", "M-XX 12")
@@ -90,7 +90,7 @@ public class P3 {
     }
 
     public void exerciseE() {
-        System.out.println("-- KUNDE RICHTER ENTFERNT: GEBE ALLE RESTLICHEN KUNDEN AUS --");
+        System.out.println("-- KUNDE RICHTER ENTFERNT --");
         collKunde.deleteOne(Filters.eq("Name", "Richter"));
         try (MongoCursor<Document> kundeCursor = collKunde.find().iterator()) {
             while (kundeCursor.hasNext()) {
