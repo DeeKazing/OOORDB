@@ -77,13 +77,12 @@ public class Main {
             System.out.println("Root First:");
             try (ResourceIterator<Node> people = graphDB.findNodes(MyLabels.Person)) {
                 while (people.hasNext()) {
-                    Node person = people.next();
                     for (Path position : graphDB.traversalDescription()
-                            .depthFirst()
+                            .breadthFirst()
                             .relationships(RelTypes.FATHER_OF, Direction.OUTGOING)
                             .relationships(RelTypes.MOTHER_OF, Direction.OUTGOING)
                             .evaluator(Evaluators.toDepth(6))
-                            .traverse(person)) {
+                            .traverse(people.next())) {
                         for (int i = 0; i < position.length(); ++i) {
                             System.out.print("\t\t\t");
                         }
@@ -94,7 +93,6 @@ public class Main {
             }
             tx.success();
         }
-
     }
 
     private static void printSubtree(Node person, int indentation) {
