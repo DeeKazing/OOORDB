@@ -38,7 +38,7 @@ function init() {
                 keyPath: 'ID',
                 autoIncrement: true
             });
-            document.getElementById("entries").innerText = "Calls in DB: " + store.count();
+            
             console.log("ObjectStore 'Calls' created!");
         }
     };
@@ -70,16 +70,39 @@ function fill(count){
         var i = 0;
         while (i < count) {
             store.put({
-                ID: i++,
+                ID: ++i,
                 Day: Math.floor(Math.random() * 30),
                 Time: Math.floor(Math.random() * 1000),
                 Duration: Math.floor(Math.random() * 90) + 10,
                 Client: Math.floor(Math.random() * 3),
                 Consultant: Math.floor(Math.random() * 3) });
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(i));
+            li.addEventListener('click', function(){printElement(parseInt(this.textContent))}, true);
+            document.getElementById('list').appendChild(li);
+            document.getElementById('list').style.visibility = "visible";
         }
+        
         console.log("Database filled successfully!");
         db.close();
     };
+}
+
+function printElement(id) {
+    var req = window.indexedDB.open("helpdesk", version);
+    
+    req.onsuccess = function(event) {
+        console.log(id)
+        var db = this.result;
+        var trans = db.transaction(['Calls'], 'readonly');
+        var store = trans.objectStore('Calls');
+        var get = store.get(id);
+        get.onsuccess = function(arg){
+            document.getElementById("elementDisplay").innerText = JSON.stringify(get.result, null, 1);
+            console.log(get.result);
+        }
+        db.close();
+    }
 }
 
 function show() {

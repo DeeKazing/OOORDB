@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-	<meta charset="utf-8">	
-	<script src="index.js"></script>
-    <title>IndexedDB</title>
-  </head>
-  <body>
-    <h1>Praktikum 7 - IndexedDB</h1>
-    <p>
-        <input type="button" value="Create database" onClick="init()">
-        <input type="button" value="Fill database" onClick="fill(100)">
-		<input type="button" value="Show database" onClick="show()">
-        <input type="button" value="Calculate durations" onClick="meanDuration()">
-    </p>
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <script src="index.js"></script>
+        <title>IndexedDB</title>
+    </head>
+    <body>
+        <h1>Praktikum 7 - IndexedDB</h1>
+        <p>
+            <input type="button" value="Create database" onclick="init()">
+            <input type="button" value="Fill database" onclick="fill(100)">
+            <input type="button" value="Show database" onclick="show()">
+            <input type="button" value="Calculate durations" onclick="meanDuration()">
+            <ul id="list" style="height: 200px; width: 18%; overflow: hidden; overflow-y: scroll; visibility: hidden;"></ul>
+            <div id="elementDisplay"></div>
+          </p>
+    </body>
 </html>
