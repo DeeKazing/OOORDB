@@ -78,6 +78,7 @@ function fill(count){
                 Consultant: Math.floor(Math.random() * 3) });
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(i));
+            li.style = "cursor: pointer;";
             li.addEventListener('click', function(){printElement(parseInt(this.textContent))}, true);
             document.getElementById('list').appendChild(li);
             document.getElementById('list').style.visibility = "visible";
@@ -141,7 +142,7 @@ function meanDuration() {
                 total += result.value.Duration;
                 count++;
                 result.continue();
-            }else { console.log("Average Call duration: " + total / count); }
+            }else { document.getElementById("meanDuration").innerText = "Average Call Duration: " + total / count; }
         };
         db.close();
     }
